@@ -15,7 +15,8 @@ const initialPuzzle = [
 ];
 
 function App() {
-  console.log(initialPuzzle);
+
+  // console.log(initialPuzzle);
 
   return (
     <div className="min-h-screen flex justify-center items-center p-4">
@@ -25,10 +26,10 @@ function App() {
         <SudokuGrid puzzle={initialPuzzle} />
 
         <div className="flex gap-4 w-full flex-col md:flex-row">
-          <button className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+          <button className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition hover:cursor-pointer">
             New Puzzle
           </button>
-          <button className="flex-1 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+          <button className="flex-1 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition hover:cursor-pointer">
             Hint
           </button>
         </div>
