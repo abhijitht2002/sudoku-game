@@ -1,14 +1,14 @@
 import React from "react";
 
-function Cell() {
+function Cell({ value, colorClass }) {
   return (
-    <div>
+    <>
       <input
         type="text"
-        className="w-12 h-12 sm:w-6 sm:h-6 text-center border border-gray-400
-        text-lg font-semibold"
+        className={`w-full aspect-square text-center text-lg font-semibold hover:cursor-pointer caret-transparent select-none touch-none ${colorClass} rounded-[6px]`}
+        value={value}
       />
-    </div>
+    </>
   );
 }
 

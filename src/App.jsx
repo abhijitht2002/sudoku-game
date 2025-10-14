@@ -1,5 +1,6 @@
 import React from "react";
 import SudokuGrid from "./components/SudokuGrid";
+import Timer from "./components/Timer";
 
 const initialPuzzle = [
   [5, 3, 0, 0, 7, 0, 0, 0, 0],
@@ -19,6 +20,8 @@ function App() {
   return (
     <div className="min-h-screen flex justify-center items-center p-4">
       <div className="flex flex-col gap-6 items-center w-full max-w-[450px]">
+        <Timer />
+
         <SudokuGrid puzzle={initialPuzzle} />
 
         <div className="flex gap-4 w-full flex-col md:flex-row">

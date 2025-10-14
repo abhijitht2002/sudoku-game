@@ -17,14 +17,7 @@ function SudokuGrid({ puzzle }) {
       {grid.map((row, rIndex) => (
         <div key={rIndex} className="flex gap-1">
           {row.map((value, cIndex) => (
-            <input
-              type="text"
-              className={`w-full aspect-square text-center text-lg font-semibold hover:cursor-pointer caret-transparent select-none touch-none ${getCellColor(
-                rIndex,
-                cIndex
-              )} rounded-[6px]`}
-              value={value === 0 ? "" : value}
-            />
+            <Cell value={value === 0 ? "" : value} colorClass={getCellColor(rIndex,cIndex)}/>
           ))}
         </div>
       ))}
