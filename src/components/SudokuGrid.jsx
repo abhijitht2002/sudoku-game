@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cell from "./Cell";
 
 function SudokuGrid({ puzzle }) {
@@ -11,25 +11,15 @@ function SudokuGrid({ puzzle }) {
     )
   );
 
-  const handleCellChange = (r,c,e) => {
+  const handleCellChange = (r, c, newVal) => {
     setGrid((prev) => {
-      const newGrid = prev.map(row => row.map(value => ({...value})))
-      console.log("Grid:", grid);
-      console.log("newGrid:", newGrid);
-      newGrid[r][c].value = e.target.value
-      return newGrid
+      const newGrid = prev.map((row) => row.map((value) => ({ ...value })));
+      newGrid[r][c].value = newVal;
+      return newGrid;
     });
   };
 
-  console.log(grid.map((row) => row.map((val) => val.value)));
-
-  const getCellColor = (r, c) => {
-    const blockRow = Math.floor(r / 3);
-    const blockCol = Math.floor(c / 3);
-
-    // return (blockRow + blockCol) % 2 === 0 ? "bg-blue-50" : "bg-blue-100";
-    return (blockRow + blockCol) % 2 === 0 ? "bg-[#e3e3e3]" : "bg-[#d0c4e8]";
-  };
+  // console.log(grid.map((row) => row.map((val) => val.value)));
 
   return (
     <div className="flex flex-col gap-1">
@@ -37,13 +27,15 @@ function SudokuGrid({ puzzle }) {
         <div key={rIndex} className="flex gap-1">
           {row.map((value, cIndex) => (
             <Cell
+              key={cIndex}
+              r={rIndex}
+              c={cIndex}
               value={value.value}
               isFixed={value.isFixed}
-              colorClass={getCellColor(rIndex, cIndex)}
-              onChange={(e) => {
-                handleCellChange(rIndex, cIndex, e);
-                
-                console.log(e.target.value);
+              onValueChange={(newVal) => {
+                handleCellChange(rIndex, cIndex, newVal);
+
+                // console.log(e.target.value);
               }}
             />
           ))}

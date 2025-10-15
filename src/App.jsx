@@ -15,7 +15,6 @@ const initialPuzzle = [
 ];
 
 function App() {
-
   // console.log(initialPuzzle);
 
   return (
