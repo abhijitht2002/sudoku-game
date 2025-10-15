@@ -8,7 +8,7 @@ const getCellColor = (r, c) => {
   return (blockRow + blockCol) % 2 === 0 ? "bg-[#e3e3e3]" : "bg-[#d0c4e8]";
 };
 
-function Cell({ r, c, value, isFixed, onValueChange }) {
+function Cell({ r, c, value, isFixed, onValueChange, isSafe }) {
   return (
     <>
       <input
@@ -17,7 +17,7 @@ function Cell({ r, c, value, isFixed, onValueChange }) {
         className={`w-full aspect-square text-center text-lg font-semibold hover:cursor-pointer caret-transparent select-none touch-none 
           ${getCellColor(r, c)} 
           rounded-[6px] 
-          ${isFixed ? "text-black" : "text-green-500"}`}
+          ${isFixed ? "text-black" : isSafe ? "text-green-500" : "text-red-500"}`}
         value={value}
         readOnly={isFixed}
         onChange={(e) => {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Cell from "./Cell";
+import { isSafe } from "../utils";
 
 function SudokuGrid({ puzzle }) {
   const [grid, setGrid] = useState(
@@ -25,20 +26,25 @@ function SudokuGrid({ puzzle }) {
     <div className="flex flex-col gap-1">
       {grid.map((row, rIndex) => (
         <div key={rIndex} className="flex gap-1">
-          {row.map((value, cIndex) => (
-            <Cell
-              key={cIndex}
-              r={rIndex}
-              c={cIndex}
-              value={value.value}
-              isFixed={value.isFixed}
-              onValueChange={(newVal) => {
-                handleCellChange(rIndex, cIndex, newVal);
+          {row.map((value, cIndex) => {
+            const checkSafety = isSafe(grid, rIndex, cIndex, value.value);
 
-                // console.log(e.target.value);
-              }}
-            />
-          ))}
+            return (
+              <Cell
+                key={cIndex}
+                r={rIndex}
+                c={cIndex}
+                value={value.value}
+                isFixed={value.isFixed}
+                isSafe={checkSafety}
+                onValueChange={(newVal) => {
+                  handleCellChange(rIndex, cIndex, newVal);
+
+                  // console.log(e.target.value);
+                }}
+              />
+            );
+          })}
         </div>
       ))}
     </div>
