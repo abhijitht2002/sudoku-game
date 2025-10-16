@@ -26,3 +26,17 @@ export function isSafe(grid, r, c, val) {
 
   return true;
 }
+
+// grid checker
+export function isGridSolved(grid){
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+      const val = grid[i][j].value
+      /* if (val === "" || val === 0) continue; */  /* skip empty cells (for reusability and for future updation if needed) */
+      if(!isSafe(grid, i, j, val)){
+        return false
+      }
+    }
+  }
+  return true
+}

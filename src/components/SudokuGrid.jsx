@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Cell from "./Cell";
-import { isSafe } from "../utils";
+import { isGridSolved, isSafe } from "../utils";
+import Popup from "./Popup";
 
 function SudokuGrid({ puzzle }) {
   const [grid, setGrid] = useState(
@@ -12,10 +13,34 @@ function SudokuGrid({ puzzle }) {
     )
   );
 
+  const [popupMessage, setPopupMessage] = useState("");
+
+  const showPopup = (msg) => setPopupMessage(msg);
+  const hidePopup = () => setPopupMessage("");
+
+  const isGridFull = (grid) => {
+    for (let r = 0; r < grid.length; r++) {
+      for (let c = 0; c < grid[r].length; c++) {
+        const cell = grid[r][c];
+        if (cell.value === "" || cell.value === 0) {
+          return false;
+        }
+      }
+    }
+    return true;
+  };
+
   const handleCellChange = (r, c, newVal) => {
     setGrid((prev) => {
       const newGrid = prev.map((row) => row.map((value) => ({ ...value })));
       newGrid[r][c].value = newVal;
+
+      // console.log("flag: ", isGridFull(newGrid));
+      if(isGridFull(newGrid) && isGridSolved(newGrid)){
+
+         showPopup(`Good job, You've finished the puzzle!`);
+      }
+
       return newGrid;
     });
   };
@@ -47,6 +72,8 @@ function SudokuGrid({ puzzle }) {
           })}
         </div>
       ))}
+
+      {popupMessage && <Popup message={popupMessage} onClose={hidePopup} />}
     </div>
   );
 }
