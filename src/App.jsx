@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SudokuGrid from "./components/SudokuGrid";
 import Timer from "./components/Timer";
 
@@ -15,14 +15,19 @@ const initialPuzzle = [
 ];
 
 function App() {
-  // console.log(initialPuzzle);
+  const [gameOver, setGameOver] = useState(false);
+  const [timeInSec, setTimeInSec] = useState(0);
+
+  // useEffect(() => {
+    
+  // }, [timeInSec]);
 
   return (
     <div className="min-h-screen flex justify-center items-center p-4">
       <div className="flex flex-col gap-6 items-center w-full max-w-[450px]">
-        <Timer />
+        <Timer status={gameOver} fetchTime={setTimeInSec} />
 
-        <SudokuGrid puzzle={initialPuzzle} />
+        <SudokuGrid puzzle={initialPuzzle} onGameOver={setGameOver} timeInSec={timeInSec}/>
 
         <div className="flex gap-4 w-full flex-col md:flex-row">
           <button className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition hover:cursor-pointer">

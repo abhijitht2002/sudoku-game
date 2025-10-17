@@ -3,7 +3,7 @@ import Cell from "./Cell";
 import { isGridSolved, isSafe } from "../utils";
 import Popup from "./Popup";
 
-function SudokuGrid({ puzzle }) {
+function SudokuGrid({ puzzle, onGameOver, timeInSec }) {
   const [grid, setGrid] = useState(
     puzzle.map((row) =>
       row.map((value) => ({
@@ -12,6 +12,19 @@ function SudokuGrid({ puzzle }) {
       }))
     )
   );
+
+  useEffect(() => {
+
+    if (timeInSec > 0) {
+      showPopup(
+        `Good work, You've finished the puzzle in ${Math.floor(
+          timeInSec / 3600
+        )} hours, ${Math.floor((timeInSec % 3600) / 60)} minutes, ${
+          timeInSec % 60
+        } seconds.`
+      );
+    }
+  }, [timeInSec]);
 
   const [popupMessage, setPopupMessage] = useState("");
 
@@ -31,21 +44,14 @@ function SudokuGrid({ puzzle }) {
   };
 
   const handleCellChange = (r, c, newVal) => {
-    setGrid((prev) => {
-      const newGrid = prev.map((row) => row.map((value) => ({ ...value })));
-      newGrid[r][c].value = newVal;
+    const newGrid = grid.map((row) => row.map((value) => ({ ...value })));
+    newGrid[r][c].value = newVal;
+    setGrid(newGrid);
 
-      // console.log("flag: ", isGridFull(newGrid));
-      if(isGridFull(newGrid) && isGridSolved(newGrid)){
-
-         showPopup(`Good job, You've finished the puzzle!`);
-      }
-
-      return newGrid;
-    });
+    if (isGridFull(newGrid) && isGridSolved(newGrid)) {
+      onGameOver(true);
+    }
   };
-
-  // console.log(grid.map((row) => row.map((val) => val.value)));
 
   return (
     <div className="flex flex-col gap-1">
@@ -65,7 +71,6 @@ function SudokuGrid({ puzzle }) {
                 onValueChange={(newVal) => {
                   handleCellChange(rIndex, cIndex, newVal);
 
-                  // console.log(e.target.value);
                 }}
               />
             );
