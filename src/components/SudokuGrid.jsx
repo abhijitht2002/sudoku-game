@@ -14,7 +14,6 @@ function SudokuGrid({ puzzle, onGameOver, timeInSec }) {
   );
 
   useEffect(() => {
-
     if (timeInSec > 0) {
       showPopup(
         `Good work, You've finished the puzzle in ${Math.floor(
@@ -70,7 +69,6 @@ function SudokuGrid({ puzzle, onGameOver, timeInSec }) {
                 isSafe={checkSafety}
                 onValueChange={(newVal) => {
                   handleCellChange(rIndex, cIndex, newVal);
-
                 }}
               />
             );
