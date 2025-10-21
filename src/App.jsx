@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SudokuGrid from "./components/SudokuGrid";
 import Timer from "./components/Timer";
 import axios from "axios";
-import puzzles from "./puzzles.json";
+// import puzzles from "./puzzles.json";  // use this in case of any api side issues
 
 const initialPuzzle = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -20,19 +20,21 @@ function App() {
   const [gameOver, setGameOver] = useState(true);
   const [timeInSec, setTimeInSec] = useState(0);
   const [puzzle, setPuzzle] = useState([]);
+  const [solution, setSolution] = useState([])
   const [loading, setLoading] = useState(false);
 
   const fetchPuzzle = async () => {
     setLoading(true);
     try {
-      // let res = await axios.get(
-      //   "https://68e0dc4d93207c4b47959959.mockapi.io/sudoku"
-      // );
-      // const puzzles = res.data;
+      let res = await axios.get(
+        "https://68e0dc4d93207c4b47959959.mockapi.io/sudoku"
+      );
+      const puzzles = res.data;
       const randomPuzzle = puzzles[Math.floor(Math.random() * puzzles.length)];
       console.log(randomPuzzle.puzzle);
 
       setPuzzle(randomPuzzle.puzzle);
+      setSolution(randomPuzzle.solution)
       setGameOver(false);
       setTimeInSec(0);
     } catch (error) {
@@ -56,15 +58,15 @@ function App() {
           // <SudokuGrid puzzle={initialPuzzle} />
           <div><h1>Loading...</h1></div>
         ) : (
-          // puzzle.length > 0 && (
+          puzzle.length > 0 && (
           <SudokuGrid
-            key={Math.random()}
+            key={puzzle.id}
             puzzle={puzzle}
             // puzzle={initialPuzzle}
             onGameOver={setGameOver}
             timeInSec={timeInSec}
           />
-          // )
+          )
         )}
 
         <div className="flex gap-4 w-full flex-col md:flex-row">
