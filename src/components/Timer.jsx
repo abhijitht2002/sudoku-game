@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import clockIcon from "../assets/icons/time.png";
 
-function Timer({ status, fetchTime }) {
+function Timer({ status, fetchTime, resetKey }) {
   const [seconds, setSeconds] = useState(0);
+
+  useEffect(()=>{
+    setSeconds(0)
+  },[resetKey])
 
   useEffect(() => {
     if (status) return; // kill if the status is true (i.e., game over)
