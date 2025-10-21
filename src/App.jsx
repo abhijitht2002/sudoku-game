@@ -27,7 +27,7 @@ function App() {
       );
       const puzzles = res.data;
       const randomPuzzle = puzzles[Math.floor(Math.random() * puzzles.length)];
-      console.log(`puzzle ${randomPuzzle.id}`, randomPuzzle.puzzle);
+      // console.log(`puzzle ${randomPuzzle.id}`, randomPuzzle.puzzle);
 
       setGrid(
         randomPuzzle.puzzle.map((row) =>
@@ -66,24 +66,24 @@ function App() {
   const handleHint = () => {
     const newGrid = grid.map((row) => row.map((value) => ({ ...value })));
     // const emptyCells = emptyCellFinder(newGrid.value);
-    console.log("New Grid: ", newGrid);
+    // console.log("New Grid: ", newGrid);
     const emptyCells = emptyCellFindAll(newGrid);
 
     if (emptyCells.length === 0) {
-      console.log("no empty cells");
+      // console.log("no empty cells");
       return;
     }
 
     const randomEmptyCell =
       emptyCells[Math.floor(Math.random() * emptyCells.length)];
 
-    console.log("ans: ", solution[randomEmptyCell[0]][randomEmptyCell[1]]);
+    // console.log("ans: ", solution[randomEmptyCell[0]][randomEmptyCell[1]]);
 
     newGrid[randomEmptyCell[0]][randomEmptyCell[1]].value =
     solution[randomEmptyCell[0]][randomEmptyCell[1]].toString();
     setGrid(newGrid);
     
-    console.log(randomEmptyCell);
+    // console.log(randomEmptyCell);
     
     // console.log(emptyCells)
   };
