@@ -99,7 +99,7 @@ function App() {
   useEffect(() => {
     if (gameOver && timeInSec > 0) {
       showPopup(
-        `Good work, You've finished the puzzle in ${Math.floor(
+        `Good work! You've finished the puzzle in ${Math.floor(
           timeInSec / 3600
         )} hours, ${Math.floor((timeInSec % 3600) / 60)} minutes, ${
           timeInSec % 60
